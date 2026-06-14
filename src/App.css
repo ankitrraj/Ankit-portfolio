@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+.App {
+  min-height: 100vh;
+}
+
+html, body {
+  background-color: #F6E0DB;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  color: #000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #E7DB4C;
+  color: #000;
+}
+
+/* Subtle grain feel using radial dot noise */
+.App::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: multiply;
+}
+
+/* Hide default cursor on desktop where custom cursor is visible */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button {
+    cursor: none;
+  }
+}
+
+/* === Keyframes used across the app === */
+@keyframes iconSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes iconSpinReverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+@keyframes sunspin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+@keyframes marqueeReverse {
+  from { transform: translateX(-33.333%); }
+  to { transform: translateX(0); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Smooth focus rings */
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 4px;
+  border-radius: 999px;
+}
