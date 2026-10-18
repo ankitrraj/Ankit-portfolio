@@ -1,57 +1,66 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play, PenTool } from 'lucide-react';
+import { ArrowUpRight, Smartphone, Globe, Code2 } from 'lucide-react';
 import StarBurst from './StarBurst';
-import { podcasts } from '../data/mock';
+import { products } from '../data/mock';
 
-const PodcastCard = ({ p, index }) => {
+const ProductCard = ({ p, index }) => {
   const [hover, setHover] = useState(false);
   return (
-    <motion.article onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} initial={{ opacity: 0, y: 60, rotate: index % 2 ? 2 : -2 }} whileInView={{ opacity: 1, y: 0, rotate: 0 }} whileHover={{ y: -10, rotate: index % 2 ? 2 : -2 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.6, delay: index * 0.06, ease: [0.2, 0.9, 0.2, 1] }} className="group relative flex h-[440px] w-[340px] shrink-0 flex-col justify-between rounded-[40px] border-2 border-black p-7" style={{ backgroundColor: hover ? '#ACE2DF' : '#fff', transition: 'background-color 300ms ease' }} data-testid={`podcast-card-${p.id}`}>
+    <motion.article
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -8 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.2, 0.9, 0.2, 1] }}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-[40px] border-2 border-black p-9"
+      style={{ backgroundColor: hover ? p.color : '#fff', transition: 'background-color 300ms ease', minHeight: 480 }}
+      data-testid={`product-card-${p.id}`}
+    >
       {p.featured && (
-        <div className="absolute right-5 top-5">
-          <div className="relative h-20 w-20" style={{ animation: 'iconSpin 14s linear infinite' }}>
+        <div className="absolute right-6 top-6">
+          <div className="relative h-16 w-16" style={{ animation: 'iconSpin 16s linear infinite' }}>
             <StarBurst color="#EF724F" className="absolute inset-0 h-full w-full" />
-            <div className="absolute inset-0 flex items-center justify-center" style={{ animation: 'iconSpinReverse 14s linear infinite' }}>
-              <PenTool className="h-7 w-7 text-black" strokeWidth={2} />
+            <div className="absolute inset-0 flex items-center justify-center" style={{ animation: 'iconSpinReverse 16s linear infinite' }}>
+              <Code2 className="h-6 w-6 text-black" strokeWidth={2.5} />
             </div>
           </div>
         </div>
       )}
-      <div />
       <div>
-        <div className="mb-3 inline-block rounded-full border-2 border-black bg-[#84BFFF] px-3 py-1 text-[13px] font-extrabold uppercase tracking-wide text-black">{p.category}</div>
-        <h2 className="font-['Alfa_Slab_One'] text-[26px] leading-[1.05] text-black">{p.title}</h2>
+        <div className="mb-4 inline-block rounded-full border-2 border-black bg-[#E7DB4C] px-3 py-1 text-[12px] font-extrabold uppercase tracking-wide text-black">{p.category}</div>
+        <h3 className="font-['Alfa_Slab_One'] text-[38px] leading-[1] text-black">{p.name}</h3>
+        <p className="mt-2 font-['Manrope'] text-[16px] font-extrabold text-black/70">{p.tagline}</p>
+        <p className="mt-5 max-w-xl font-['Manrope'] text-[15px] font-medium leading-[1.45] text-black">{p.description}</p>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {p.stats.map((s) => (
+            <span key={s} className="rounded-full border-2 border-black bg-white px-3 py-1 text-[12px] font-extrabold text-black">{s}</span>
+          ))}
+        </div>
       </div>
-      <div className="mt-6 flex items-center justify-between">
-        <span className="text-[13px] font-extrabold text-black underline-offset-4 group-hover:underline">En savoir plus</span>
-        <button aria-label="Écouter" className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-[#EF724F] transition-transform duration-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2" data-testid={`play-${p.id}`}>
-          <Play className="h-5 w-5 translate-x-0.5 fill-[#E7DB4C] text-black" strokeWidth={2} />
-        </button>
+      <div className="mt-8 flex flex-wrap items-center gap-3">
+        <a href={p.web} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#EF724F] px-5 py-3 text-[14px] font-extrabold text-black transition-transform duration-300 hover:scale-105" data-testid={`web-${p.id}`}>
+          <Globe className="h-4 w-4" strokeWidth={2.5} />Visit website<ArrowUpRight className="h-4 w-4" strokeWidth={2.5} />
+        </a>
+        <a href={p.app} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-5 py-3 text-[14px] font-extrabold text-black transition-transform duration-300 hover:scale-105" data-testid={`app-${p.id}`}>
+          <Smartphone className="h-4 w-4" strokeWidth={2.5} />Get the app
+        </a>
       </div>
     </motion.article>
   );
 };
 
-const PodcastsSection = () => {
-  const scrollerRef = useRef(null);
-  const scroll = (dir) => { if (scrollerRef.current) scrollerRef.current.scrollBy({ left: dir * 380, behavior: 'smooth' }); };
-  return (
-    <section className="relative z-10 w-full py-24" id="balados" data-testid="podcasts-section">
-      <div className="mx-auto max-w-[1500px] px-8">
-        <div className="mb-10 flex items-end justify-between gap-6">
-          <motion.h2 initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.2, 0.9, 0.2, 1] }} className="font-['Manrope'] text-[44px] font-extrabold leading-[1] text-black md:text-[64px]">Tous les balados</motion.h2>
-          <div className="flex items-center gap-3">
-            <button onClick={() => scroll(-1)} aria-label="Précédent" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-white transition-all duration-300 hover:bg-[#ACE2DF] hover:-translate-x-0.5" data-testid="podcasts-prev"><ChevronLeft className="h-5 w-5" strokeWidth={2.5} /></button>
-            <button onClick={() => scroll(1)} aria-label="Suivant" className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-black bg-white transition-all duration-300 hover:bg-[#ACE2DF] hover:translate-x-0.5" data-testid="podcasts-next"><ChevronRight className="h-5 w-5" strokeWidth={2.5} /></button>
-          </div>
-        </div>
-        <div ref={scrollerRef} className="flex gap-6 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {podcasts.map((p, i) => <PodcastCard key={p.id} p={p} index={i} />)}
-        </div>
+const PodcastsSection = () => (
+  <section className="relative z-10 w-full py-24 scroll-mt-24" id="products" data-testid="products-section">
+    <div className="mx-auto max-w-[1300px] px-8">
+      <motion.h2 initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.2, 0.9, 0.2, 1] }} className="mb-10 font-['Manrope'] text-[44px] font-extrabold leading-[1] text-black md:text-[64px]">Products I’ve shipped</motion.h2>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {products.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default PodcastsSection;

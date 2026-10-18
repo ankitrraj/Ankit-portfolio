@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { navLinks, exploreItems } from '../data/mock';
+
+const isExternal = (href) => /^(https?:|mailto:)/.test(href);
+
+const NavLink = ({ to, className, children, ...rest }) =>
+  isExternal(to)
+    ? <a href={to} target={to.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className={className} {...rest}>{children}</a>
+    : <Link to={to} className={className} {...rest}>{children}</Link>;
 
 const PillButton = ({ children, onClick, active, hasArrow, to, className = '', testId }) => {
   const inner = (
@@ -14,21 +21,20 @@ const PillButton = ({ children, onClick, active, hasArrow, to, className = '', t
     </span>
   );
   const classes = `group relative rounded-full border-2 border-black bg-white px-7 py-3 text-[15px] font-extrabold text-black transition-all duration-300 hover:bg-[#ACE2DF] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${className}`;
-  if (to) return <Link to={to} className={classes} data-testid={testId}>{inner}</Link>;
+  if (to) return <NavLink to={to} className={classes} data-testid={testId}>{inner}</NavLink>;
   return <button onClick={onClick} className={classes} aria-expanded={hasArrow ? !!active : undefined} data-testid={testId}>{inner}</button>;
 };
 
 const Logo = () => (
-  <Link to="/" className="block select-none" aria-label="La puce à l'oreille" data-testid="header-logo">
+  <Link to="/" className="block select-none" aria-label="Ankit Rajoria" data-testid="header-logo">
     <motion.div initial={{ rotate: -8, scale: 0.9 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 14 }} className="font-['Alfa_Slab_One'] text-[18px] leading-[1.05] tracking-tight text-black">
-      La Puce<br />&agrave; l&rsquo;oreille
+      Ankit<br />Rajoria
     </motion.div>
   </Link>
 );
 
 const Header = () => {
   const [openExplore, setOpenExplore] = useState(false);
-  const location = useLocation();
   return (
     <header className="relative z-50 w-full" data-testid="site-header">
       <div className="flex items-center justify-between gap-4 px-8 py-6">
@@ -36,13 +42,13 @@ const Header = () => {
           <Logo />
           <nav className="hidden items-center gap-3 md:flex">
             <div className="relative">
-              <PillButton hasArrow active={openExplore} onClick={() => setOpenExplore((v) => !v)} testId="nav-explorer">Explorer</PillButton>
+              <PillButton hasArrow active={openExplore} onClick={() => setOpenExplore((v) => !v)} testId="nav-explorer">Explore</PillButton>
               <AnimatePresence>
                 {openExplore && (
                   <motion.div initial={{ opacity: 0, y: -8, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.96 }} transition={{ duration: 0.22, ease: [0.2, 0.9, 0.2, 1] }} className="absolute left-0 top-[calc(100%+10px)] z-50 w-64 rounded-[20px] border-2 border-black bg-white p-3 shadow-[6px_6px_0_#000]" data-testid="explore-dropdown">
                     <ul className="space-y-1">
                       {exploreItems.map((it) => (
-                        <li key={it.label}><Link to={it.href} className="block rounded-full px-4 py-2 text-[14px] font-extrabold text-black transition-colors duration-200 hover:bg-[#ACE2DF]" onClick={() => setOpenExplore(false)}>{it.label}</Link></li>
+                        <li key={it.label}><NavLink to={it.href} className="block rounded-full px-4 py-2 text-[14px] font-extrabold text-black transition-colors duration-200 hover:bg-[#ACE2DF]" onClick={() => setOpenExplore(false)}>{it.label}</NavLink></li>
                       ))}
                     </ul>
                   </motion.div>
@@ -56,7 +62,7 @@ const Header = () => {
         </div>
         <nav className="hidden items-center gap-3 lg:flex">
           {navLinks.secondary.map((l) => (
-            <Link key={l.label} to={l.href} className={`rounded-full border-2 border-black bg-white px-5 py-2 text-[13px] font-extrabold text-black transition-all duration-300 hover:bg-[#ACE2DF] hover:-translate-y-0.5 ${location.pathname === l.href ? 'bg-[#E7DB4C]' : ''}`} data-testid={`nav-sec-${l.label.toLowerCase()}`}>{l.label}</Link>
+            <NavLink key={l.label} to={l.href} className="rounded-full border-2 border-black bg-white px-5 py-2 text-[13px] font-extrabold text-black transition-all duration-300 hover:bg-[#ACE2DF] hover:-translate-y-0.5" data-testid={`nav-sec-${l.label.toLowerCase()}`}>{l.label}</NavLink>
           ))}
         </nav>
       </div>
