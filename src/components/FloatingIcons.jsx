@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import StarBurst from './StarBurst';
-import SunburstRays from './SunburstRays';
 
 const Robot = () => (
   <svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
@@ -67,8 +66,8 @@ const AnimatedBurstIcon = ({ top, left, right, burstColor, hoverColor = '#981082
   }, [parallaxSpeed]);
   return (
     <div className="absolute" style={{ top, left, right, width: size, height: size, transform: `translateY(${-offset}px)`, zIndex: hover ? 60 : 5 }} data-cursor="hover">
-      <div className="pointer-events-none absolute left-1/2 top-1/2"><SunburstRays size={1600} active={hover} /></div>
-      <button type="button" aria-label="Decoration" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)} className="group absolute inset-0 cursor-pointer focus:outline-none" style={{ transform: `scale(${hover ? 7 : 1})`, transition: 'transform 700ms cubic-bezier(.2,.9,.2,1)', transformOrigin: 'center' }} data-testid={`burst-icon-${burstColor}`}>
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[2100px] w-[2100px] -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ background: 'repeating-radial-gradient(circle, #981082 0 10%, #84BFFF 10% 20%, #EF724F 20% 30%, #981082 30% 40%)', opacity: hover ? 1 : 0, transform: `translate(-50%, -50%) scale(${hover ? 1 : 0.02})`, transition: 'transform 650ms cubic-bezier(.2,.9,.2,1), opacity 120ms ease' }} />
+      <button type="button" aria-label="Decoration" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)} className="group absolute inset-0 cursor-pointer focus:outline-none" style={{ transform: `scale(${hover ? 1.18 : 1})`, transition: 'transform 320ms cubic-bezier(.2,.9,.2,1)', transformOrigin: 'center' }} data-testid={`burst-icon-${burstColor}`}>
         <div className="relative h-full w-full" style={{ animation: `${reverseSpin ? 'iconSpinReverse' : 'iconSpin'} ${idleSpinDuration}s linear infinite`, transformOrigin: 'center' }}>
           <div className="absolute inset-0" style={{ transform: `rotate(${rotation}deg)` }}>
             <StarBurst color={hover ? hoverColor : burstColor} stroke="#000" strokeWidth={2} className="h-full w-full" style={{ transition: 'fill 280ms ease' }} />

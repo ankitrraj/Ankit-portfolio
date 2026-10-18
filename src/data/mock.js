@@ -1,57 +1,117 @@
-// Mock data for La puce à l'oreille clone
+// Portfolio content — Ankit Rajoria
 
 export const navLinks = {
   primary: [
-    { label: 'Explorer', hasDropdown: true, path: '/balados' },
-    { label: 'Événements', hasDropdown: false, path: '/evenements' },
-    { label: 'Affiches amplifiées', hasDropdown: false, path: '/affiches' },
+    { label: 'Products', hasDropdown: true, path: '/#products' },
+    { label: 'Experience', hasDropdown: false, path: '/#experience' },
+    { label: 'About', hasDropdown: false, path: '/about' },
   ],
   secondary: [
-    { label: 'À propos', href: '/a-propos' },
-    { label: 'Médiation', href: '/mediation' },
-    { label: 'Confidentialité', href: '/confidentialite' },
+    { label: 'GitHub', href: 'https://github.com/ankitrraj' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/ankit-rajoria' },
+    { label: 'Email', href: 'mailto:ai.ankitrajoria@gmail.com' },
   ],
 };
 
 export const exploreItems = [
-  { label: 'Tous les balados', href: '/balados' },
-  { label: 'Sciences & nature', href: '/balados#sciences' },
-  { label: 'Contes & histoires', href: '/balados#contes' },
-  { label: 'Émotions & intimité', href: '/balados#emotions' },
-  { label: 'Société & histoire', href: '/balados#societe' },
-  { label: 'Arts & culture', href: '/balados#arts' },
-  { label: 'Allo la puce', href: '/balados#allo' },
-  { label: 'Pour les profs', href: '/balados#profs' },
+  { label: 'GenAI roadmap', href: '/genai' },
+  { label: 'EnglishpersonAI', href: '/#products' },
+  { label: 'AICampz', href: '/#products' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Tech stack', href: '/#stack' },
+  { label: 'Achievements', href: '/#experience' },
+  { label: 'About me', href: '/about' },
+  { label: 'GitHub', href: 'https://github.com/ankitrraj' },
+  { label: 'Contact', href: 'mailto:ai.ankitrajoria@gmail.com' },
 ];
 
-export const heroIntro = `La puce à l'oreille crée des balados pour les enfants! Dans son temps libre, elle se balade aussi dans les écoles, les bibliothèques, les musées, les festivals, partout où il y a des enfants à émerveiller.`;
+export const heroTitle = ['Ankit builds', 'AI products', 'end to end'];
 
-export const podcasts = [
-  { id: 'terre-academie', title: 'Terre Académie | Biosphère de Montréal', category: 'Sciences & nature', color: '#84BFFF', featured: true },
-  { id: 'facteur-espace', title: "Le facteur de l'espace – Saison 2 | Balado | La Pastèque", category: 'Contes & histoires', color: '#EF724F' },
-  { id: 'memos-vocaux', title: 'Mémos Vocaux', category: 'Émotions & intimité', color: '#981082' },
-  { id: 'bonnes-nouvelles', title: "Les bonnes nouvelles des As de l'info", category: 'Société & histoire', color: '#E7DB4C' },
-  { id: 'expression', title: "J'adore cette expression!", category: 'Arts & culture', color: '#ACE2DF', featured: true },
-  { id: 'voix-lactee', title: 'La voix lactée', category: 'Contes & histoires', color: '#84BFFF' },
-  { id: 'enquetes-puce', title: 'Les enquêtes de la puce', category: 'Sciences & nature', color: '#EF724F' },
-  { id: 'petites-pousses', title: 'Petites pousses', category: 'Émotions & intimité', color: '#E7DB4C' },
+export const heroIntro = `Full Stack Software Engineer shipping production web & mobile apps with React, Next.js, React Native, Node.js and PostgreSQL. Sole engineer behind two live AI products.`;
+
+// The two flagship products (rendered as big feature cards)
+export const products = [
+  {
+    id: 'englishpersonai',
+    name: 'EnglishpersonAI',
+    tagline: 'AI-powered English coaching platform',
+    category: 'Live product',
+    color: '#84BFFF',
+    description:
+      'A production AI English coach: 4 practice modes with personalized prompts, automatic failover between DeepSeek & Groq LLMs, Razorpay subscription billing with HMAC verification, gamification (XP, streaks, leaderboard) with an offline sync queue, and edge push notifications on Cloudflare Workers.',
+    stats: ['18 app screens', '11 API modules', '5,400+ LOC'],
+    web: 'https://englishpersonai.com',
+    app: 'https://englishpersonai.com',
+    featured: true,
+  },
+  {
+    id: 'aicampz',
+    name: 'AICampz',
+    tagline: 'AI learning platform — web & mobile',
+    category: 'Live product',
+    color: '#F0A8DD',
+    description:
+      'An AI-driven learning product available on web and as a mobile app. Built full stack with a React / Next.js frontend, Node.js backend and PostgreSQL, deployed on cloud infrastructure with CI/CD.',
+    stats: ['Web + App', 'Full stack', 'Production'],
+    web: 'https://aicampz.com',
+    app: 'https://aicampz.com',
+    featured: true,
+  },
 ];
 
-export const relatedEvents = [
-  { id: 'a-lecoute', title: "À l'écoute!", description: "À l'écoute! est la toute nouvelle série de balados documentaires pour enfants imaginée par La puce à l'oreille en partenariat avec des maisons d'édition québécoises.", cta: 'Découvrir tous les balados' },
-  { id: 'club-profs', title: 'Le Club des profs', description: "Le tout nouveau Club des profs de La puce à l'oreille vous propose des ressources pédagogiques, de la documentation et des éléments de veille pour utiliser et créer des balados avec les jeunes publics!", cta: 'Découvrir le Club des profs' },
-  { id: 'projet', title: 'Vous avez un projet?', description: 'Vous avez une idée, une envie, un projet? Nous sommes là pour vous aider!', cta: 'En apprendre plus' },
+// Experience / achievement cards
+export const highlights = [
+  {
+    id: 'founder',
+    title: 'Founder & CTO — EnglishpersonAI',
+    description:
+      'Jan 2024 – Present. Architected and led development of a production AI coaching platform as sole engineer — technical strategy, system design and delivery.',
+    cta: 'View product',
+    href: '/#products',
+  },
+  {
+    id: 'hackathons',
+    title: '1st Prize — HackUEM 2025',
+    description:
+      'Runner-up at LNMIIT Unstoppable Hackathon, Technical Head at AceHack 5.0, and 12+ hackathons overall. Single-handedly built and shipped full products end to end.',
+    cta: 'See achievements',
+    href: '/#experience',
+  },
+  {
+    id: 'build',
+    title: 'Let’s build something',
+    description:
+      'Open to full-stack, product engineering and AI roles. Fast to ship, comfortable owning the whole stack from React Native to Cloudflare Workers.',
+    cta: 'Get in touch',
+    href: 'mailto:ai.ankitrajoria@gmail.com',
+  },
 ];
 
-export const marqueeWords = ['Balados', 'Histoires', 'Aventures', 'Émerveillement', 'Curiosité', 'Imaginaire', 'Découvertes'];
+export const skills = [
+  { group: 'Languages', items: 'JavaScript, TypeScript, HTML, CSS' },
+  { group: 'Frontend', items: 'React.js, Next.js, React Native (Expo), Tailwind, shadcn/ui' },
+  { group: 'Backend', items: 'Node.js, Express.js, REST APIs, Socket.IO, Prisma' },
+  { group: 'Databases', items: 'PostgreSQL' },
+  { group: 'Cloud & DevOps', items: 'DigitalOcean, Cloudflare Workers & R2, Docker, CI/CD, Vercel, Nginx, PM2' },
+  { group: 'Tools', items: 'Git, GitHub, Postman, Playwright, Cursor' },
+];
+
+export const marqueeWords = ['React', 'Next.js', 'React Native', 'Node.js', 'PostgreSQL', 'TypeScript', 'Cloudflare'];
 
 export const footerLinks = {
-  navigation: ['Tous les balados', 'Événements', 'Affiches amplifiées', 'Pour les profs', 'À propos', 'Médiation', 'Nous contacter'],
+  navigation: [
+    { label: 'GenAI roadmap', href: '/genai' },
+    { label: 'EnglishpersonAI', href: '/#products' },
+    { label: 'AICampz', href: '/#products' },
+    { label: 'Experience', href: '/#experience' },
+    { label: 'Tech stack', href: '/#stack' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: 'mailto:ai.ankitrajoria@gmail.com' },
+  ],
   social: [
-    { label: 'Facebook', href: '#' },
-    { label: 'Instagram', href: '#' },
-    { label: 'YouTube', href: '#' },
-    { label: 'Spotify', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/ankitrraj' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/ankit-rajoria' },
+    { label: 'Email', href: 'mailto:ai.ankitrajoria@gmail.com' },
   ],
 };
 
