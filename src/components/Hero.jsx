@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import FloatingIcons from './FloatingIcons';
 import StarBurst from './StarBurst';
 import { heroIntro } from '../data/mock';
@@ -71,6 +73,11 @@ const Hero = () => (
           </span>
         ))}
       </h1>
+      <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.78, ease: [0.2, 0.9, 0.2, 1] }} className="mt-10">
+        <Link to="/genai" className="inline-flex items-center gap-3 rounded-full border-2 border-black bg-[#E7DB4C] px-6 py-3 text-[15px] font-extrabold text-black shadow-[5px_5px_0_#000] transition-all duration-300 hover:-translate-y-1 hover:bg-[#84BFFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4" data-testid="hero-genai-link">
+          Explore GenAI roadmap <ArrowRight className="h-5 w-5" strokeWidth={3} />
+        </Link>
+      </motion.div>
     </div>
     <motion.div className="absolute bottom-10 right-10 z-20 hidden max-w-md md:block" initial={{ opacity: 0, y: 30, rotate: 0 }} animate={{ opacity: 1, y: 0, rotate: -3 }} transition={{ duration: 0.8, delay: 0.8, ease: [0.2, 0.9, 0.2, 1] }}>
       <div className="rounded-[10px] border-2 border-black bg-[#ACE2DF] p-6 shadow-[8px_8px_0_#000]">
