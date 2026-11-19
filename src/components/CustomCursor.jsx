@@ -54,7 +54,7 @@ const CustomCursor = () => {
     <>
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-10 w-10 rounded-full border-2 border-black md:block"
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9999] hidden h-10 w-10 rounded-full border-2 border-black md:block"
         style={{
           mixBlendMode: 'difference',
           backgroundColor: hovering ? '#EF724F' : 'transparent',
@@ -64,7 +64,7 @@ const CustomCursor = () => {
       />
       <div
         ref={dotRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-2 w-2 rounded-full bg-black md:block"
+        className="custom-cursor pointer-events-none fixed left-0 top-0 z-[9999] hidden h-2 w-2 rounded-full bg-black md:block"
         style={{ opacity: hidden ? 0 : 1, transition: 'opacity 200ms ease' }}
       />
     </>

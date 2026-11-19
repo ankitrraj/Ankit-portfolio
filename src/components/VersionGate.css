@@ -1,0 +1,184 @@
+.vgate {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  animation: vgate-in .45s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes vgate-in { from { opacity: 0; } }
+
+/* ---------- the question ---------- */
+.vgate-ask {
+  position: absolute;
+  top: 7vh;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 3;
+  text-align: center;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: #fff;
+  animation: vgate-ask-in .6s cubic-bezier(.22, 1, .36, 1) .15s both;
+}
+
+@keyframes vgate-ask-in { from { opacity: 0; translate: -50% 14px; } }
+
+.vgate-ask-k {
+  display: block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+.vgate-ask-h {
+  margin: 10px 0 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+/* ---------- the two halves ---------- */
+.vgate-half {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 clamp(24px, 5vw, 72px);
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: flex-grow .5s cubic-bezier(.22, 1, .36, 1);
+}
+.vgate:hover .vgate-half { flex-grow: .85; }
+.vgate .vgate-half:hover { flex-grow: 1.3; }
+
+.vgate-title {
+  font-size: clamp(24px, 3.2vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
+
+.vgate-sub {
+  max-width: 30ch;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.vgate-cta {
+  margin-top: 8px;
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  transition: transform .25s cubic-bezier(.22, 1, .36, 1);
+}
+.vgate-half:hover .vgate-cta { transform: translateX(5px); }
+
+/* ---------- old half ---------- */
+.vgate-half--old {
+  background: #F6E0DB;
+  color: #000;
+  font-family: 'Manrope', sans-serif;
+}
+.vgate-half--old .vgate-title { font-family: 'Alfa Slab One', serif; }
+.vgate-half--old .vgate-sub { font-weight: 700; }
+.vgate-half--old .vgate-cta {
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: #E7DB4C;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.vgate-swatches { display: flex; gap: 8px; }
+.vgate-swatches i {
+  width: 26px; height: 26px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  animation: vgate-bob 2.4s ease-in-out infinite;
+}
+.vgate-swatches i:nth-child(2) { animation-delay: .15s; }
+.vgate-swatches i:nth-child(3) { animation-delay: .3s; }
+.vgate-swatches i:nth-child(4) { animation-delay: .45s; }
+
+@keyframes vgate-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* ---------- new half ---------- */
+.vgate-half--new {
+  background: #131417;
+  color: #e8e9e4;
+  font-family: 'Space Grotesk', sans-serif;
+  background-image: radial-gradient(#e8e9e412 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+.vgate-half--new .vgate-sub { color: #b6b9bd; }
+.vgate-half--new .vgate-cta {
+  border: 1px solid #f0875c;
+  border-radius: 2px;
+  color: #f0875c;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500;
+}
+
+.vgate-rules { display: flex; flex-direction: column; gap: 6px; width: 120px; }
+.vgate-rules i { height: 1px; background: #4c525c; transform-origin: 0; animation: vgate-draw 2.4s ease-in-out infinite; }
+.vgate-rules i:nth-child(1) { width: 100%; }
+.vgate-rules i:nth-child(2) { width: 70%; animation-delay: .2s; }
+.vgate-rules i:nth-child(3) { width: 85%; animation-delay: .4s; }
+.vgate-rules i:nth-child(4) { width: 50%; background: #f0875c; animation-delay: .6s; }
+
+@keyframes vgate-draw { 0%, 100% { scale: 1 1; } 50% { scale: .55 1; } }
+
+/* ---------- hint ---------- */
+.vgate-hint {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 3;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: #fff;
+  mix-blend-mode: difference;
+  opacity: .7;
+  pointer-events: none;
+}
+
+/* ---------- leaving: the chosen side takes the screen ---------- */
+.vgate--leaving { pointer-events: none; }
+.vgate--leaving .vgate-ask,
+.vgate--leaving .vgate-hint { opacity: 0; transition: opacity .2s ease; }
+
+.vgate--picked-old .vgate-half--old,
+.vgate--picked-new .vgate-half--new { flex-grow: 8; transition: flex-grow .42s cubic-bezier(.65, 0, .35, 1); }
+.vgate--picked-old .vgate-half--new,
+.vgate--picked-new .vgate-half--old { flex-grow: 0; transition: flex-grow .42s cubic-bezier(.65, 0, .35, 1); }
+
+@media (max-width: 760px) {
+  .vgate { flex-direction: column; }
+  .vgate-half { gap: 10px; padding: 0 24px; }
+  .vgate-title { font-size: 26px; }
+  .vgate-sub { font-size: 14px; }
+  .vgate-hint { display: none; }
+  .vgate-ask { top: 3vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vgate, .vgate-ask { animation: none; }
+  .vgate-swatches i, .vgate-rules i { animation: none; }
+  .vgate-half, .vgate-cta { transition: none; }
+}
+
+/* v1 keeps a custom cursor at z-9999 and hides the native one —
+   neither belongs over the gate. */
+html.vgate-open .custom-cursor { display: none !important; }
+html.vgate-open body,
+html.vgate-open a,
+html.vgate-open button { cursor: pointer !important; }

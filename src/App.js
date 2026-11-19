@@ -9,6 +9,9 @@ import CustomCursor from '@/components/CustomCursor';
 import HomePage from '@/pages/HomePage';
 import AboutPage from '@/pages/AboutPage';
 import GenAIPage from '@/pages/GenAIPage';
+import V2Page from '@/pages/V2Page';
+import VersionSwitch from '@/components/VersionSwitch';
+import VersionGate from '@/components/VersionGate';
 import { Toaster } from '@/components/ui/toaster';
 
 const ScrollToTop = () => {
@@ -27,9 +30,30 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/genai" element={<GenAIPage />} />
+        <Route path="/v2" element={<V2Page />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </AnimatePresence>
+  );
+};
+
+const Shell = () => {
+  const { pathname } = useLocation();
+  const bare = pathname.startsWith('/v2'); // v2 brings its own dark chrome
+  return (
+    <>
+      <Loader />
+      {!bare && <CustomCursor />}
+      <ScrollToTop />
+      {!bare && <Header />}
+      <main>
+        <AnimatedRoutes />
+      </main>
+      {!bare && <Footer />}
+      <VersionSwitch />
+      <VersionGate />
+      <Toaster />
+    </>
   );
 };
 
@@ -37,15 +61,7 @@ function App() {
   return (
     <div className="App" style={{ backgroundColor: '#F6E0DB' }}>
       <BrowserRouter>
-        <Loader />
-        <CustomCursor />
-        <ScrollToTop />
-        <Header />
-        <main>
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <Toaster />
+        <Shell />
       </BrowserRouter>
     </div>
   );

@@ -1,0 +1,112 @@
+.vswitch {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: vswitch-in .5s cubic-bezier(.22, 1, .36, 1) .4s both;
+}
+
+@keyframes vswitch-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+.vswitch-k {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.vswitch-track {
+  position: relative;
+  display: flex;
+  padding: 3px;
+}
+
+.vswitch-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  transition: transform .34s cubic-bezier(.22, 1, .36, 1), background-color .2s ease;
+}
+
+.vswitch-opt {
+  position: relative;
+  z-index: 1;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+/* the thumb sits under whichever option is current */
+.vswitch-track:has(.vswitch-opt:last-child[aria-current]) .vswitch-thumb {
+  transform: translateX(100%);
+}
+
+/* ---------- old (v1): neo-brutalist ---------- */
+.vswitch--old { font-family: 'Manrope', sans-serif; }
+.vswitch--old .vswitch-k { color: #000; font-weight: 800; }
+.vswitch--old .vswitch-track {
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.vswitch--old .vswitch-track:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #000; }
+.vswitch--old .vswitch-thumb { border-radius: 999px; background: #E7DB4C; border: 2px solid #000; }
+.vswitch--old .vswitch-opt { color: #000; }
+.vswitch--old .vswitch-opt[aria-current] { color: #000; }
+
+/* ---------- new (v2): editorial ----------
+   v2's tokens live on .v2, which this sits outside of, so follow the
+   theme flag v2 publishes on <html> instead. */
+.vswitch--new {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  --vs-ink: #8e9299;
+  --vs-rule: #2e3238;
+  --vs-rule-2: #4c525c;
+  --vs-raise: #191b1f;
+  --vs-accent: #f0875c;
+}
+html[data-v2-theme='light'] .vswitch--new {
+  --vs-ink: #6b665e;
+  --vs-rule: #d4cec2;
+  --vs-rule-2: #9c958a;
+  --vs-raise: #fbf9f5;
+  --vs-accent: #b8502a;
+}
+
+.vswitch--new .vswitch-k { color: var(--vs-ink); }
+.vswitch--new .vswitch-track {
+  border: 1px solid var(--vs-rule);
+  border-radius: 2px;
+  background: var(--vs-raise);
+  transition: border-color .2s ease;
+}
+.vswitch--new .vswitch-track:hover { border-color: var(--vs-rule-2); }
+.vswitch--new .vswitch-thumb {
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--vs-accent) 12%, transparent);
+}
+.vswitch--new .vswitch-opt { color: var(--vs-ink); font-weight: 500; }
+.vswitch--new .vswitch-opt[aria-current] { color: var(--vs-accent); }
+
+/* v2 hides the native cursor rule from v1 — keep this clickable either way */
+.vswitch, .vswitch a { cursor: pointer; }
+
+@media (max-width: 640px) {
+  .vswitch { left: 12px; bottom: 12px; }
+  .vswitch-k { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vswitch { animation: none; }
+  .vswitch-thumb { transition: none; }
+}
