@@ -15,7 +15,7 @@ import React, { useEffect, useRef } from 'react';
    ============================================================ */
 
 const CELL = 4;
-const DOT = 1.5;
+const DOT = 2;
 const TILE = CELL * 8; // one Bayer tile
 const PARALLAX = 0.35;
 

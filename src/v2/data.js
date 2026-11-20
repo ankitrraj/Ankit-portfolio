@@ -36,8 +36,8 @@ export const products = [
     live: true,
     url: 'https://englishpersonai.com',
     summary:
-      'An AI English coach for Indian learners preparing for interviews and placements. Four practice modes, spoken feedback, and a streak system that keeps people coming back. I architected and built all of it — app, API, billing, infrastructure — as the only engineer.',
-    tech: 'React Native (Expo), Node.js, Express, Supabase (PostgreSQL), Cloudflare Workers, DeepSeek / Groq, Razorpay',
+      'A voice-first English and interview coach for India. People speak to it; it hears them, replies in under two seconds, and turns the conversation into a score a recruiter can trust. The same engine runs a hiring line: a company uploads a spreadsheet and every applicant gets a real interview, scored against evidence. I architected and built all of it as the only engineer.',
+    tech: 'React Native (Expo), Next.js, Express, Postgres, Deepgram, DeepSeek → Groq, Redis / BullMQ, Cloudflare, R2',
     facets: [
       { id: 'modes', name: 'the modes', layers: ['client', 'api'], text: 'Four practice modes, each with its own generated prompt built from the learner’s level and history.' },
       { id: 'failover', name: 'the failover', layers: ['api'], text: 'DeepSeek first, Groq automatically on failure — a turn never dies because one provider is down.' },
@@ -54,8 +54,8 @@ export const products = [
     live: true,
     url: 'https://aicampz.com',
     summary:
-      'Run the campus, not the register. A platform for physical colleges that puts attendance, lectures, quizzes and AI-assisted study material in one place instead of five spreadsheets and a WhatsApp group.',
-    tech: 'Next.js, Node.js, PostgreSQL',
+      'Run the campus, not the register. A multi-tenant platform for physical colleges — courses, attendance, quizzes, notices and AI study material for heads of department, teachers and students. One API serves every college, and each college gets its own address.',
+    tech: 'Next.js (static), Expo, NestJS, Drizzle, Postgres, BullMQ / Redis, Socket.IO, object storage, Cloudflare',
     facets: [
       { id: 'attendance', name: 'attendance', layers: ['client', 'data'], text: 'The register, replaced — marked once and readable by everyone who needs it.' },
       { id: 'lectures', name: 'lectures', layers: ['client', 'api'], text: 'Schedule and material for every lecture, in the place students already are.' },

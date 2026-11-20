@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import { Github, Linkedin, Mail, Moon, Sun, ArrowUpRight, ArrowRight, Copy, Check } from 'lucide-react';
 import '../v2/v2.css';
 import { DitherField, Land } from '../v2/Dither';
+import IsoScene from '../v2/IsoScene';
+import { SCENES } from '../v2/scenes';
 import { identity, intro, products, writing, awards, career, LAYERS } from '../v2/data';
 
 /* ---------------- theme + iris wipe ---------------- */
@@ -145,41 +147,45 @@ const Work = ({ items, withLinks }) => {
 
       <div className="work-panels">
         <div className="work-panel" key={product.id}>
-          <div className="work-body">
-            <div className="plate" aria-hidden="true">
-              {LAYERS.map((layer) => {
-                const lit = facet ? product.facets.find((f) => f.id === facet)?.layers ?? [] : [];
-                return (
-                  <div className="plate-layer" key={layer.id} data-on={lit.includes(layer.id) || undefined}>
-                    <div className="plate-nm">{layer.name}</div>
-                    <div className="plate-tx">{layer.desc}</div>
-                  </div>
-                );
-              })}
-            </div>
+          {SCENES[product.id] ? (
+            <Architecture product={product} />
+          ) : (
+            <div className="work-body">
+              <div className="plate" aria-hidden="true">
+                {LAYERS.map((layer) => {
+                  const lit = facet ? product.facets.find((f) => f.id === facet)?.layers ?? [] : [];
+                  return (
+                    <div className="plate-layer" key={layer.id} data-on={lit.includes(layer.id) || undefined}>
+                      <div className="plate-nm">{layer.name}</div>
+                      <div className="plate-tx">{layer.desc}</div>
+                    </div>
+                  );
+                })}
+              </div>
 
-            <div className="facets">
-              {product.facets.map((f) => (
-                <button
-                  type="button"
-                  className="facet"
-                  key={f.id}
-                  data-on={facet === f.id || undefined}
-                  onMouseEnter={() => setFacet(f.id)}
-                  onMouseLeave={() => setFacet(null)}
-                  onFocus={() => setFacet(f.id)}
-                  onBlur={() => setFacet(null)}
-                >
-                  <span className="facet-nm">{f.name}</span>
-                  <span className="facet-tx">{f.text}</span>
-                </button>
-              ))}
+              <div className="facets">
+                {product.facets.map((f) => (
+                  <button
+                    type="button"
+                    className="facet"
+                    key={f.id}
+                    data-on={facet === f.id || undefined}
+                    onMouseEnter={() => setFacet(f.id)}
+                    onMouseLeave={() => setFacet(null)}
+                    onFocus={() => setFacet(f.id)}
+                    onBlur={() => setFacet(null)}
+                  >
+                    <span className="facet-nm">{f.name}</span>
+                    <span className="facet-tx">{f.text}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="work-text">
-            <p className="mech-body">{product.summary}</p>
-            <p className="mech-stack">{product.tech}</p>
+            {!SCENES[product.id] && <p className="mech-body">{product.summary}</p>}
+            {!SCENES[product.id] && <p className="mech-stack">{product.tech}</p>}
             {product.live && (
               <a className="work-site" href={product.url} target="_blank" rel="noreferrer">
                 {product.url.replace('https://', '')}
@@ -190,6 +196,39 @@ const Work = ({ items, withLinks }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+/* ---------------- architecture: scene tabs + the machine ---------------- */
+
+const Architecture = ({ product }) => {
+  const scenes = SCENES[product.id];
+  const [i, setI] = useState(0);
+
+  useEffect(() => setI(0), [product.id]);
+
+  return (
+    <>
+      <p className="mech-body" style={{ marginBottom: 'var(--s-5)' }}>{product.summary}</p>
+
+      <div className="iso-scenes" role="tablist" aria-label={`${product.name} systems`}>
+        {scenes.map((sc, k) => (
+          <button
+            key={sc.id}
+            type="button"
+            role="tab"
+            aria-selected={i === k}
+            className="iso-scene-tab"
+            onClick={() => setI(k)}
+          >
+            <b>{sc.name}</b>
+            <small>{sc.sub}</small>
+          </button>
+        ))}
+      </div>
+
+      <IsoScene scene={scenes[i]} key={scenes[i].id} />
+    </>
   );
 };
 
